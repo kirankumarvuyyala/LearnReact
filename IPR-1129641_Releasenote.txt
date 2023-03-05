@@ -1,0 +1,40 @@
+1.Update Attached  "mPitesan_Offline_Merchants.js&MpitesanController.js "  in scripts folder
+2. Update  handler "Mpitesan_Offline.ashx" attached in "Handlers" folder
+3. Execute dbscripts attached (DBScripts.sql).
+4.Update in bin folder (3)
+   1.App_Web_mpitesan_offline_merchants.aspx.cdcab7d2.dll
+   2.App_Web_mpitesan_merchant_controls.aspx.cdcab7d2.dll
+   3.App_Code.dll
+5. Update aspx files
+  1.mPitesan_Merchant_Controls.aspx
+  2.mPitesan_Offline_Merchants.aspx
+6. Add below lines  in styles.css file
+.ddl{
+    width: 170px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin: 0 10px 0 5px;
+    text-align:left;           --->changed
+}
+
+  .tablegradient-Header, .tablegradient-Header thead  th {
+        background: -webkit-linear-gradient(top, #ffc107, #ffc107);
+        background: -o-linear-gradient(top, #ffc107, #ffc107);
+        background: -moz-linear-gradient(top, #ffc107, #ffc107);
+        background: linear-gradient(top, #ffc107, #ffc107);
+        font-weight: 500 !important;
+        border-collapse:collapse;
+    }
+
+7. Add below lines in sidemenu.ascx
+
+ <li id="DynamicForms">
+                     <a href="#"><span>Dynamic Forms</span></a>
+                    <ul>
+                              <li id="mPitesan_Offline_Merchants"><a href="mPitesan_Offline_Merchants.aspx"                               title="MpitesanOfflineMerchants">MpitesanOfflineMerchants</a></li>      
+                    </ul>
+ </li>
+8. add below key in web.config and change the server path according to usage 
+ <add key="BILLER_IMAGES" value="D:\OneDrive - Digitral\Desktop\merchanticons\"/>
+

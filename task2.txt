@@ -1,0 +1,351 @@
+
+import logo from './logo.svg';
+import './App.css';
+
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
+  );
+}
+
+export default App;
+
+
+
+
+
+
+User.js===
+================
+import axios from "axios";
+import { useEffect, useRef, useState } from "react";
+
+import First from "./First.css"
+import Loader from "./Loader";
+const User = () => {
+	let [currentPage, setCurrentpage] = useState(1);
+	const url = `https://reqres.in/api/users?page=${currentPage}`;
+	let cache = useRef({});
+	const [arr, setArr] = useState([]);
+
+	let [loading, setLoading] = useState(true);
+
+
+	useEffect((arr) => {
+
+		
+
+		const fetchpost = async () => {
+
+			if (cache.current[url]) {
+				const data = cache.current[url];
+				setArr(data.data);
+
+			}
+			else {
+				setLoading(true);
+
+					console.log(" loader value " + loading);
+					const res = await axios.get(`https://reqres.in/api/users?page=${currentPage}`);
+
+			
+						setArr(res.data.data);
+						cache.current[url] = res.data;
+						console.log(cache);
+						setLoading(false);
+					
+
+			}
+		}
+		fetchpost();
+		console.log("loader before " + loading)
+		
+		console.log("loader after " + loading);
+
+	}
+		, [currentPage]);
+
+
+
+
+	let next = document.querySelector('.Next');
+	let previous = document.querySelector('.Previous');
+
+	let setPageNumber = (event) => {
+		if (event === 1) {
+
+			previous.classList.add('disabled')
+			next.classList.remove('disabled');
+
+		}
+		else {
+			previous.classList.remove('disabled')
+			next.classList.add('disabled');
+		}
+		setCurrentpage(event);
+	}
+
+
+
+	return (
+		<>
+			<div >{loading ? <Loader></Loader> : " "}
+			</div>
+
+			<table border={1}
+
+
+
+				align="center">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Email</th>
+						<th>FirstName</th>
+						<th>LastName</th>
+						<th>Avatar</th>
+
+					</tr>
+				</thead>
+
+				<tbody>
+					{
+						arr.map((arr, index) => {
+							return (
+								<tr key={index}>
+
+									<td>{arr.id}</td>
+									<td>{arr.email}</td>
+									<td>{arr.first_name}</td>
+									<td>{arr.last_name}</td>
+									<td>
+										<img width={80} height={80} alt={arr.avatar} src={arr.avatar}></img></td>
+
+								</tr>
+							)
+						})
+					}
+				</tbody>
+			</table>
+
+			<br></br>
+			<div className="text-xs-center">
+				<nav aria-label="Page navigation example">
+					<ul className="pagination justify-content-center" >
+						<li className="page-item Previous disabled"><a onClick={() => setPageNumber(1)} className="page-link " href="/#">&laquo;</a></li>
+						<li className="page-item "><a onClick={() => setPageNumber(1)} style={currentPage === 1 ? { backgroundColor: "green", color: "white" } : { backgroundColor: "whitesmoke" }} className="page-link  " href="/#">1</a></li>
+						<li className="page-item "><a key={2} onClick={() => setPageNumber(2)} style={currentPage === 2 ? { backgroundColor: "green", color: "white" } : { backgroundColor: "whitesmoke" }} className="page-link " href="/#">2</a></li>
+						<li className="page-item Next"><a key={2} onClick={() => setPageNumber(2)} className="page-link " href="/#">&raquo;</a></li>
+					</ul>
+				</nav>
+			</div>
+
+
+		</>
+	)
+}
+export default User;
+
+
+
+
+First.css
+================
+table{
+    border-collapse: collapse;
+    text-align: center;
+    width: 40%;
+    height: auto;
+
+    border-color:red;
+}
+th{
+    background-color: yellow;
+}
+.paging{   
+
+    width: 50%;
+
+    color:whitesmoke;
+    display: "flex";
+     justify-content: "center";
+     
+
+}
+.disbled{
+    background-color: red;
+}
+===
+Loader.js
+==-----------
+import React from 'react'
+
+function Loader() {
+  return (
+    <><button className="btn btn-primary" type="button" disabled>
+			<span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+			<span className="visually-hidden">Loading...</span>
+		</button><button className="btn btn-primary" type="button" disabled>
+				<span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+				Loading...
+			</button></>
+  )
+}
+
+export default Loader
+==================
+final document
+-------------------------------------
+import axios from "axios";
+import { useEffect, useRef, useState } from "react";
+
+import "./First.css"
+import Loader from "./Loader";
+const User = () => {
+	const [currentPage, setCurrentpage] = useState(1);
+	const url = `https://reqres.in/api/users?page=${currentPage}`;
+	let cache = useRef({});
+	const [arr, setArr] = useState([]);
+    const[total_pages,setTotal_pages]=useState(0);
+	let [loading, setLoading] = useState(true);
+	let pageNumbers=[];
+	
+
+	const fetchpost = async () => {
+
+		if (cache.current[url]) {
+			const data = cache.current[url];
+			setArr(data.data);
+
+		}
+		else {
+			setLoading(true);
+			//console.log("loader"+loading);
+				const res = await axios.get(`https://reqres.in/api/users?page=${currentPage}`);
+
+		
+					setArr(res.data.data);
+					console.log("headers  "+res.headers);
+					cache.current[url] = res.data;
+					setTotal_pages(res.data.total_pages);
+					console.log(cache);
+					setLoading(false);
+		}
+	}
+
+
+
+	useEffect(() => {
+
+		fetchpost();
+		
+	},[currentPage]);
+
+	for (let i = 1; i <= total_pages; i++) {
+		pageNumbers.push(i);
+	  }
+
+	let next = document.querySelector('.Next');
+	let previous = document.querySelector('.Previous');
+	
+
+	let setPageNumber = (number) => {
+		console.log('pagenumbers '+number);
+	
+		if (number === 1) {
+
+			previous.classList.add('disabled')
+			next.classList.remove('disabled');
+
+		}
+		else {
+			previous.classList.remove('disabled')
+			next.classList.add('disabled');
+		}
+		setCurrentpage(number);
+	}
+
+
+	return (
+		<>
+			<div >{loading ? <Loader></Loader> : " "}
+			</div>
+			
+
+			<table border={1}
+
+
+
+				align="center">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Email</th>
+						<th>FirstName</th>
+						<th>LastName</th>
+						<th>Avatar</th>
+
+					</tr>
+				</thead>
+
+				<tbody>
+					{
+						arr.map((arr, index) => {
+							return (
+								<tr key={index}>
+
+									<td>{arr.id}</td>
+									<td>{arr.email}</td>
+									<td>{arr.first_name}</td>
+									<td>{arr.last_name}</td>
+									<td><img width={80} height={80} alt={arr.avatar} src={arr.avatar}></img></td>
+
+								</tr>
+							)
+						})
+					}
+				</tbody>
+			</table>
+
+			<br></br>
+			<div className="text-xs-center">
+				<nav aria-label="Page navigation example">
+					<ul className="pagination justify-content-center" >
+						<li className="page-item Previous disabled" key={0}><a onClick={() => setPageNumber(currentPage-1)} className="page-link  " href="!#">&laquo;</a></li>
+						{pageNumbers.map(number => (
+                            <li key={number}  className={`page-item ${currentPage === number ?"active" : ""}`} >
+                          <a onClick={() => setPageNumber(number)} href='!#' className='page-link'>
+                            {number}
+                          </a>
+                          </li>
+                          ))}
+
+						<li className="page-item Next" key={2}><a  onClick={() => setPageNumber(currentPage+1)} className="page-link " href="!#">&raquo;</a></li>
+					</ul>
+				</nav>
+			</div>
+
+
+		</>
+	)
+}
+export default User;
+
+
+
+

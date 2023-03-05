@@ -1,0 +1,35 @@
+
+.UserTable{
+    border-collapse: collapse;
+    text-align: center;
+    width: 45%;
+    height: 20%;
+
+    border-color:red;
+}
+th{
+    background-color: yellow;
+}
+.paging{   
+
+    width: 50%;
+
+    color:whitesmoke;
+    display: "flex";
+     justify-content: "center";
+     
+
+}
+.image{
+    width: 40%;
+    height: 50%;
+    
+}
+.card{
+    text-align: center;
+    width: 33%;
+    height: 10%;
+border-color: blue;
+    display:inline-block;
+}
+nav a.active{text-decoration:none;font-weight:bolder;background-color:green}

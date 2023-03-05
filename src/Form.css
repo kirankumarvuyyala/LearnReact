@@ -1,0 +1,19 @@
+.inputtext{
+    width:15%;
+    height: 15%;
+}
+table{
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+}
+.formtable{
+    width: 100%;
+    height: auto;
+    text-align: center;
+    border-collapse: collapse;
+}
+.text{
+    width: 100%;
+    text-align: right;
+}

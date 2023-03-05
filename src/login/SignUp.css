@@ -1,0 +1,40 @@
+
+.tabledata{
+    width: 40%;
+    height: auto;
+    text-align: center;
+    border-collapse: collapse;
+    border-color: yellow;
+    background-color: aliceblue;
+}
+.formpage{
+    background-color:#d2eb43;
+}
+/* .container {
+    display : flex;
+    height: 90vh;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+} */
+
+form {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.form-outline {
+    padding-bottom: 10px;
+}
+
+.signup {
+    padding-top: 10px;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
