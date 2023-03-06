@@ -28,7 +28,9 @@ axios.post('http://localhost:64790/api/Selfcare/getUser',userdata).then(
         .catch((err) => {
           console.log(err);
         });
-       if(response) {
+        console.log(response);
+       if(response.data) {
+     
     Swal.fire({
       title: "Perfect!",
       text: "Would you like to Login?",
@@ -45,9 +47,9 @@ axios.post('http://localhost:64790/api/Selfcare/getUser',userdata).then(
   }
     localStorage.setItem('password', password);
     localStorage.setItem('Number', Number);
-    let correctPassword = window.localStorage.getItem(password);
-    let number=window.localStorage.getItem(Number);
-    console.log('pass:'+correctPassword+'num:'+number);
+ //   let correctPassword = window.localStorage.getItem(password);
+  //  let number=window.localStorage.getItem(Number);
+ //   console.log('pass:'+correctPassword+'num:'+number);
   }
 
   return (

@@ -2,6 +2,7 @@ import React, {useEffect,  useState} from "react";
 import axios from "axios";
 import {  useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import client from "../interceptor/Api";
 import './SignUp.css'
 
 export default function Login() {
@@ -10,6 +11,7 @@ export default function Login() {
   const [Number, setNumber] = useState("");
   const [password, setPassword] = useState("");
   let [userdata,setUserdata]=useState({});
+
   useEffect(()=>{
     window.localStorage.removeItem('authorized');
   },[]);
@@ -19,7 +21,8 @@ export default function Login() {
     let res1="";
     setUserdata(userdata={MobileNumber:Number,password:password})
     console.log(JSON.stringify(userdata));
-    await axios.post('http://localhost:64790/api/Selfcare/validateUser',userdata).then(
+    // await axios.post('http://localhost:64790/api/Selfcare/validateUser',userdata).then(
+     await client.post('/validateUser',userdata).then(
      (res) => {
       res1=res.data;
      console.log(res);
